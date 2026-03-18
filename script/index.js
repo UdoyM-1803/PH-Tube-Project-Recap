@@ -1,5 +1,14 @@
 console.log("Index is Connected.");
 
+function removeActiveClass() {
+    const activeButtons = document.getElementsByClassName("active");
+
+    // Created a loop to remove active class from others button except the buttons clicked. 
+    for (let btn of activeButtons) {
+        btn.classList.remove("active");
+    }
+}
+
 function loadCategories() {
     //1. Fetch the Data........
     fetch("https://openapi.programming-hero.com/api/phero-tube/categories")
@@ -13,7 +22,13 @@ function loadCategories() {
 function loadVideos() {
     fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
         .then(response => response.json())
-        .then(data => displayVideos(data.videos))
+        .then(data => {
+
+            // When All button will be clicked then active class will be removed from others button but active class will be added to All button. 
+            removeActiveClass();
+            document.getElementById("btn-all").classList.add("active");
+            displayVideos(data.videos)
+        })
 }
 
 const loadCategoryVideos = (id) => {
@@ -22,7 +37,11 @@ const loadCategoryVideos = (id) => {
     fetch(url)
         .then(res => res.json())
         .then(data => {
+            removeActiveClass();
+
             const clickedButton = document.getElementById(`btn-${id}`);
+            
+            // Active class added to the Categories so that we can understood that which category we have in.
             clickedButton.classList.add("active");
             console.log(clickedButton);
             displayVideos(data.category);
