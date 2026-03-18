@@ -8,6 +8,13 @@
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        .active{
+            background: #FF1F3D;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,7 +39,7 @@
     <!-- Category Button Area ----------------- -->
 
     <nav id="category-container" class="flex py-2 justify-center gap-5">
-        <button class="btn btn-sm bg-[rgb(255,31,61)] text-white">ALL</button>
+        <button onclick="loadVideos()" class="btn btn-sm bg-[rgb(255,31,61)] text-white">ALL</button>
     </nav>
     <!-- ########################################## -->
 
@@ -41,6 +48,9 @@
 
     <section id="video-container" class="w-11/12 mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
 
+        <div class="col-span-full flex flex-col text-center justify-center items-center py-20">
+            <img class="w-[120px]" src="Resources/Icon.png" alt="">
+            <h2 class="text-2xl font-bold">Oops!! Sorry, There is no content here</h2>
         </div>
 
     </section>

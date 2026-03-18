@@ -16,6 +16,19 @@ function loadVideos() {
         .then(data => displayVideos(data.videos))
 }
 
+const loadCategoryVideos = (id) => {
+    const url = `https://openapi.programming-hero.com/api/phero-tube/category/${id}`
+
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            const clickedButton = document.getElementById(`btn-${id}`);
+            clickedButton.classList.add("active");
+            console.log(clickedButton);
+            displayVideos(data.category);
+        })
+}
+
 function displayCategories(categories) {
     // Get the Container
     const categoryContainer = document.getElementById("category-container");
@@ -27,7 +40,7 @@ function displayCategories(categories) {
         const categoryDiv = document.createElement("div");
 
         categoryDiv.innerHTML = `
-        <button class="btn btn-sm hover:bg-[rgb(255,31,61)] hover:text-white">${cat.category}</button>
+        <button id="btn-${cat.category_id}" onclick="loadCategoryVideos(${cat.category_id})" class="btn btn-sm hover:bg-[rgb(255,31,61)] hover:text-white">${cat.category}</button>
         `;
 
         // Append the Element
@@ -35,9 +48,22 @@ function displayCategories(categories) {
     }
 }
 
-
 const displayVideos = (videos) => {
+    console.log(videos);
     const videoContainer = document.getElementById("video-container");
+
+    videoContainer.innerHTML = "";
+
+    // If there is no content in specific category, then show it....
+    if (videos.length == 0) {
+        videoContainer.innerHTML = `
+            <div class="col-span-full flex flex-col text-center justify-center items-center py-20">
+                <img class="w-[120px]" src="Resources/Icon.png" alt="">
+                <h2 class="text-2xl font-bold">Oops!! Sorry, There is no content here</h2>
+            </div>
+        `;
+        return;
+    }
 
     videos.forEach(video => {
         const videoCard = document.createElement("div");
@@ -74,4 +100,3 @@ const displayVideos = (videos) => {
 }
 
 loadCategories()
-loadVideos()
