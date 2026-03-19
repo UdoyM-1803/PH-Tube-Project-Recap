@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <style>
-        .active{
+        .active {
             background: #FF1F3D;
             color: white;
         }
@@ -46,7 +46,7 @@
 
     <!-- Video Container Area --------------- -->
 
-    <section id="video-container" class="w-11/12 mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+    <section id="video-container" class="w-11/12 mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 pt-5 pb-10">
 
         <div class="col-span-full flex flex-col text-center justify-center items-center py-20">
             <img class="w-[120px]" src="Resources/Icon.png" alt="">
@@ -56,6 +56,21 @@
     </section>
     <!-- ########################################## -->
 
+    <!-- Open the modal using ID.showModal() method -->
+    <!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button> -->
+    <dialog id="video_details" class="modal">
+        <div class="modal-box">
+            <div id="details-container">
+
+            </div>
+            <div class="modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
     <script src="script/index.js"></script>
 </body>
 

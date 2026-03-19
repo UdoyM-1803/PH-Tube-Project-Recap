@@ -40,12 +40,43 @@ const loadCategoryVideos = (id) => {
             removeActiveClass();
 
             const clickedButton = document.getElementById(`btn-${id}`);
-            
+
             // Active class added to the Categories so that we can understood that which category we have in.
             clickedButton.classList.add("active");
             console.log(clickedButton);
             displayVideos(data.category);
         })
+}
+
+const loadVideoDetails = (videoID) => {
+    console.log(videoID);
+    // Load Video Details when "Show Details" button is clicked.
+    const url = `https://openapi.programming-hero.com/api/phero-tube/video/${videoID}`;
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayVideoDetails(data.video));
+}
+
+const displayVideoDetails = (videoDetails) => {
+    console.log(videoDetails);
+    document.getElementById("video_details").showModal();
+
+    // Showing details to modals...
+    const detailsContainer = document.getElementById("details-container");
+
+    detailsContainer.innerHTML = `
+    <div class="card bg-base-100 image-full shadow-sm">
+        <figure>
+            <img src="${videoDetails.thumbnail}"
+                alt="Shoes" />
+        </figure>
+        <div class="card-body">
+            <h2 class="card-title text-yellow-300 font-serif">${videoDetails.title}</h2>
+            <p class="text-amber-300">${videoDetails.description}</p>
+            <h2 class="text-stone-300 font-medium text-right">Written by ${videoDetails.authors[0].profile_name}</h2>
+        </div>
+    </div>
+    `
 }
 
 function displayCategories(categories) {
@@ -68,7 +99,6 @@ function displayCategories(categories) {
 }
 
 const displayVideos = (videos) => {
-    console.log(videos);
     const videoContainer = document.getElementById("video-container");
 
     videoContainer.innerHTML = "";
@@ -110,6 +140,7 @@ const displayVideos = (videos) => {
                     <p class="text-sm text-gray-400">${video.others.views} Views</p>
                 </div>
             </div>
+            <button onclick="loadVideoDetails('${video.video_id}')" class="btn btn-block">Show Details</button>
         </div>
         `;
         videoContainer.append(videoCard);
